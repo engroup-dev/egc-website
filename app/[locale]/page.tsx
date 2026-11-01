@@ -6,6 +6,7 @@ import { GallerySection } from "@/components/main/gallery-section";
 import { HeroSection } from "@/components/main/hero-section";
 import { ImageSliderSection } from "@/components/main/image-slider-section";
 import { ProjectsSection } from "@/components/main/projects-section";
+import { AppsSection } from "@/components/main/apps-section";
 import { ServicesSection } from "@/components/main/services-section";
 import { TeamSection } from "@/components/main/team-section";
 
@@ -29,6 +30,7 @@ export default async function Home({
       <ServicesSection />
       <FoundersSection />
       <ProjectsSection locale={locale} />
+      <AppsSection locale={locale} />
       {/* <TeamSection /> */}
       {/* <GallerySection /> */}
       <ContactSection />

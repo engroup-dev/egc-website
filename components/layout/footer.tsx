@@ -62,6 +62,14 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  href="/#apps"
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                >
+                  {t("links.apps")}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/#contact"
                   className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
                 >

@@ -110,7 +110,8 @@
     "contactUs": "Get in Touch",
     "gallery": "Gallery",
     "home": "Home",
-    "projects": "Projects"
+    "projects": "Projects",
+    "apps": "EGC Apps"
   },
   "services": {
     "architectural": {
@@ -199,7 +200,8 @@
       "founders": "Co-Founders",
       "projects": "Projects",
       "gallery": "Gallery",
-      "contact": "Contact"
+      "contact": "Contact",
+      "apps": "EGC Applications"
     },
     "services": {
       "title": "Services",

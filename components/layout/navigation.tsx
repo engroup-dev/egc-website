@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, type MouseEvent } from "react";
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -161,6 +161,25 @@ export function Navigation() {
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
+            {/* The EGC Builder Pill Button with Company Symbol */}
+            <Link
+              href="/#apps"
+              onClick={(e) => handleLinkClick(e, "/#apps")}
+              className="group flex items-center gap-2 px-3 py-1.5 rounded-full border border-accent/40 bg-accent/10 hover:bg-accent hover:border-accent transition-all text-xs font-semibold shadow-2xs"
+              title="EGC Builder — تطبيقات ومنظومة المشاريع"
+            >
+              <Image
+                src="/logos/egclogow-removebg-small.png"
+                alt="EGC"
+                width={16}
+                height={16}
+                className="object-contain transition-transform group-hover:scale-110"
+              />
+              <span className="font-semibold text-accent group-hover:text-white transition-colors tracking-wide">
+                EGC Builder
+              </span>
+            </Link>
+
             <LocaleSwitcher />
             <Button
               asChild
@@ -176,18 +195,37 @@ export function Navigation() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <motion.span
-              animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}
-              transition={{ duration: 0.18 }}
+          <div className="flex items-center gap-2 lg:hidden">
+            {/* Mobile quick EGC Builder pill */}
+            <Link
+              href="/#apps"
+              onClick={(e) => handleLinkClick(e, "/#apps")}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-accent/40 bg-accent/10 text-accent text-xs font-semibold"
+              title="EGC Builder"
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </motion.span>
-          </button>
+              <Image
+                src="/logos/egclogow-removebg-small.png"
+                alt="EGC"
+                width={14}
+                height={14}
+                className="object-contain"
+              />
+              <span className="text-[11px] font-bold">EGC Builder</span>
+            </Link>
+
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+              className="p-1"
+            >
+              <motion.span
+                animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}
+                transition={{ duration: 0.18 }}
+              >
+                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </motion.span>
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -221,9 +259,29 @@ export function Navigation() {
                   </motion.div>
                 ))}
 
-                <div className="flex justify-between ">
+                {/* Mobile EGC Builder Pill inside drawer */}
+                <motion.div variants={item} className="pt-2">
+                  <Link
+                    href="/#apps"
+                    onClick={(e) => handleLinkClick(e, "/#apps")}
+                    className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg border border-accent/40 bg-accent/10 text-accent font-semibold text-xs"
+                  >
+                    <Image
+                      src="/logos/egclogow-removebg-small.png"
+                      alt="EGC"
+                      width={18}
+                      height={18}
+                      className="object-contain"
+                    />
+                    <span className="font-bold text-sm tracking-wide">
+                      EGC Builder
+                    </span>
+                  </Link>
+                </motion.div>
+
+                <div className="flex justify-between items-center pt-2">
                   <motion.div variants={item}>
-                    <div className="mt-4 w-full" aria-label="Change language">
+                    <div aria-label="Change language">
                       <LocaleSwitcher />
                     </div>
                   </motion.div>
@@ -232,7 +290,6 @@ export function Navigation() {
                       asChild
                       variant="default"
                       size="sm"
-                      className="mt-4 w-full"
                     >
                       <Link
                         href="/#contact"

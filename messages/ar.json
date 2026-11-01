@@ -110,7 +110,8 @@
     "contactUs": "تواصل معنا",
     "gallery": "معرض",
     "home": "الرئيسية",
-    "projects": "المشاريع"
+    "projects": "المشاريع",
+    "apps": "المنظومة والتطبيقات"
   },
   "services": {
     "architectural": {
@@ -199,7 +200,8 @@
       "founders": "المؤسسون",
       "projects": "المشاريع",
       "gallery": "المعرض",
-      "contact": "اتصل بنا"
+      "contact": "اتصل بنا",
+      "apps": "تطبيقات المنظومة"
     },
     "services": {
       "title": "الخدمات",
