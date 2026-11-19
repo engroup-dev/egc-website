@@ -185,7 +185,15 @@
       "phonePlaceholder": "+218 XX XXX XXXX",
       "message": "Project Details *",
       "messagePlaceholder": "Tell us about your project...",
-      "submit": "Send Message"
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Thank you! Your message has been sent. We'll get back to you soon.",
+      "reload": "Reload the page",
+      "errors": {
+        "invalid": "Please fill in your name, a valid email address and your project details.",
+        "failed": "We couldn't send your message. Please try again, or email us at info@engroup.ly.",
+        "stale": "We couldn't reach the server. Reload the page and send again, or email us at info@engroup.ly."
+      }
     }
   },
   "footer": {

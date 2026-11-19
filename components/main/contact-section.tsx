@@ -5,23 +5,36 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, CheckCircle2, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
+import { submitContactForm } from "@/lib/actions/contact";
+
+const emptyForm = { name: "", email: "", phone: "", message: "", website: "" };
 
 export function ContactSection() {
   const t = useTranslations("contact");
   const locale = useLocale();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState(emptyForm);
+  const [status, setStatus] = useState<
+    "idle" | "sending" | "success" | "invalid" | "failed" | "stale"
+  >("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setStatus("sending");
+    try {
+      const result = await submitContactForm({ ...formData, locale });
+      if (result.ok) {
+        setStatus("success");
+        setFormData(emptyForm);
+      } else {
+        setStatus(result.error);
+      }
+    } catch {
+      // Network failure, or this tab predates a deploy and its action ID is gone.
+      setStatus("stale");
+    }
   };
 
   return (
@@ -191,9 +204,59 @@ export function ContactSection() {
                 />
               </div>
 
-              <Button type="submit" size="lg" className="w-full">
-                {t("form.submit")}
+              {/* Honeypot: hidden from people, filled in by bots. */}
+              <div className="hidden" aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input
+                  id="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={formData.website}
+                  onChange={(e) =>
+                    setFormData({ ...formData, website: e.target.value })
+                  }
+                />
+              </div>
+
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full"
+                disabled={status === "sending"}
+              >
+                {status === "sending" ? t("form.sending") : t("form.submit")}
               </Button>
+
+              <p
+                role="status"
+                aria-live="polite"
+                className="min-h-5 text-sm flex items-start gap-2"
+              >
+                {status === "success" && (
+                  <>
+                    <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0 text-accent" />
+                    {t("form.success")}
+                  </>
+                )}
+                {(status === "invalid" || status === "failed" || status === "stale") && (
+                  <>
+                    <AlertCircle className="w-4 h-4 mt-0.5 shrink-0 text-destructive" />
+                    <span>
+                      {t(`form.errors.${status}`)}{" "}
+                      {status === "stale" && (
+                        <button
+                          type="button"
+                          onClick={() => window.location.reload()}
+                          className="underline underline-offset-4"
+                        >
+                          {t("form.reload")}
+                        </button>
+                      )}
+                    </span>
+                  </>
+                )}
+              </p>
             </form>
           </div>
         </div>
